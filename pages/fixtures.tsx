@@ -1,22 +1,22 @@
 import type { NextPage, GetStaticProps } from "next";
+import Logo from "../components/chelsea-logo-svg.component";
 import FixtureCard from "../components/fixture-card.component";
 
-const Fixtures = ({ response }: any) => {
-  console.log(response);
-  let game = response[0];
+const Fixtures: NextPage = ({ response }: any) => {
   return (
-    <div>
-      {response.map((item: any, index: number) => (
-        <FixtureCard fixture={item} key={index} />
-      ))}
+    <div className="bg-blue-50 m-auto w-auto">
+      <div className="m-auto">
+        {response.map((item: any, index: number) => (
+          <FixtureCard fixture={item} key={index} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log("getting props!");
   const res = await fetch(
-    "https://api-football-v1.p.rapidapi.com/v3/fixtures?team=49&next=10",
+    "https://api-football-v1.p.rapidapi.com/v3/fixtures?team=49&next=20",
     {
       method: "GET",
       headers: {

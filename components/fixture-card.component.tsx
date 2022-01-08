@@ -1,9 +1,8 @@
 import Image from "next/image";
 
 const FixtureCard = ({ fixture }: any) => {
-  console.log("props from fixture card", fixture);
   return (
-    <div className="flex justify-evenly m-3 p-3 rounded-xl w-fit bg-slate-200 hover:bg-blue-400">
+    <div className="flex justify-evenly justify-items-center items-center rounded-xl  w-[500px] bg-lightblue ml-auto mr-auto mt-2 mb-2 pt-4 pb-4">
       <div className="flex flex-col justify-evenly justify-items-center items-center">
         <Image
           src={fixture.teams.home.logo}
