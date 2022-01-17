@@ -5,14 +5,15 @@ import FixtureCard from "../components/fixture-card.component";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import AnimatedHeader from "../components/animated-header.component";
 
 const animatedTask = {
   hidden: { opacity: 1 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
-      //   delayChildren: 1,
+      staggerChildren: 0.5,
+      delayChildren: 1,
     },
   },
   remove: { opacity: 0 },
@@ -37,24 +38,19 @@ const Fixtures: NextPage = ({ response }: any) => {
     }
   }, [controls, inView]);
   return (
-    <div className="bg-blue-50 ml-auto mr-auto mb-8 mt-8 w-auto">
-      <motion.h1
-        initial="hidden"
-        animate="show"
-        variants={header}
-        className="tracking-wide leading-4 text-3xl font-sans text-slate-800 font-semibold uppercase p-3 text-center"
-      >
-        Upcoming Fixtures
-      </motion.h1>
-
+    <div className="bg-blue-50 ml-auto mr-auto mb-8 mt-8 w-auto h-screen">
+      <div className="p-6 text-center">
+        <AnimatedHeader text={"upcoming fixtures"} />
+      </div>
       <div className="m-auto">
         <AnimatePresence>
           <motion.div variants={animatedTask} initial="hidden" animate="show">
-            {response.map((item: any, index: number) => (
-              <motion.div key={index} variants={listItem}>
-                <FixtureCard fixture={item} />
-              </motion.div>
-            ))}
+            {response &&
+              response.map((item: any, index: number) => (
+                <motion.div key={index} variants={listItem}>
+                  <FixtureCard fixture={item} />
+                </motion.div>
+              ))}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -63,6 +59,7 @@ const Fixtures: NextPage = ({ response }: any) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
+  console.log("running get static fixtures");
   const res = await fetch(
     "https://api-football-v1.p.rapidapi.com/v3/fixtures?team=49&next=20",
     {
